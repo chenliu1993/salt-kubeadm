@@ -1,13 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: nginx-ingress
+  name: wordpress-ingress
 spec:
   rules:
-  - host: www.myexample.com
+  - host: wordpress.me
     http:
       paths:
       - path: /
         backend:
-          serviceName: nginx-service
-          servicePort: 80
+          serviceName: wordpress-service
+          servicePort: 8080
