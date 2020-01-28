@@ -1,14 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: nginx-service
+  name: wordpress-service
 spec:
   selector:
-    app: nginx
+    app: wordpress
   ports:
   - protocol: TCP
-    port: 80
+    port: 8080
     targetPort: 80
-    nodePort: 30002
   type: NodePort
   

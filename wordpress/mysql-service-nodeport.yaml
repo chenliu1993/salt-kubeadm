@@ -1,14 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: nginx-service
+  name: mysql-service
 spec:
   selector:
-    app: nginx
+    app: mysql
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
-    nodePort: 30002
+    port: 3306
+    targetPort: 3306
   type: NodePort
   
