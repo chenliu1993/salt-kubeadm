@@ -27,25 +27,13 @@ spec:
         - containerPort: 3306
         env:
         - name: MYSQL_ROOT_PASSWORD 
-          valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: mysql_root_password
+          value: "123456.com"
         - name: MYSQL_USER
-          valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: mysql_user
+          value: "wordpress"
         - name: MYSQL_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: mysql_password
+          value: "wordpress"
         - name: MYSQL_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: mysql_database
+          value: "database"
         volumeMounts:
         - mountPath: "/var/lib/mysql"
           name: pvc-demo

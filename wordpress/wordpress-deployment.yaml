@@ -27,12 +27,24 @@ spec:
         - containerPort: 80
         env:
         - name: WORDPRESS_DB_HOST
-          value: "10.1.131.30:3306"
+          valueFrom:
+            configMapKeyRef:
+              name: wordpress-config
+              key: wordpress_db_host
         - name: WORDPRESS_DB_USER
-          value: "wordpress"
+          valueFrom:
+            configMapKeyRef:
+              name: wordpress-config
+              key: wordpress_db_user
         - name: WORDPRESS_DB_PASSWORD
-          value: "wordpress"
+          valueFrom:
+            configMapKeyRef:
+              name: wordpress-config
+              key: wordpress_db_password
         - name: WORDPRESS_DB_NAME
-          value: "database"        
+          valueFrom:
+            configMapKeyRef:
+              name: wordpress-config
+              key: wordpress_db_name
       nodeSelector:
         edgenode: "true" 
