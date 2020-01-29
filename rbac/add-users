@@ -1,0 +1,5 @@
+kubectl config set-credentials liuchen --client-certificate=my.crt --client-key=my.key
+kubectl config set-context --cluster=kubernetes --namespace=default --user=liuchen
+kubectl config set-context liuchen-context --cluster=kubernetes --namespace=default --user=liuchen
+
+kubectl create sa liuchen-sa -n default
