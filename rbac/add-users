@@ -1,3 +1,9 @@
+openssl genrsa -out tls.key 2048
+openssl req -new -x509 -key tls.key -out tls.crt
+openssl genrsa -out my.key 2048
+openssl req -new -key my.key -out my.csr -subj "/CN=liuchen/O=users"
+openssl x509 -req -in my.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out my.crt -days 500
+
 kubectl config set-credentials liuchen --client-certificate=my.crt --client-key=my.key
 kubectl config set-context --cluster=kubernetes --namespace=default --user=liuchen
 kubectl config set-context liuchen-context --cluster=kubernetes --namespace=default --user=liuchen
