@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: busybox-rc
+  labels:
+    app: busybox
+spec:
+  minReadySeconds: 5
+  replicas: 2
+  selector:
+    app: busybox
+  template:
+    metadata:
+      labels:
+        app: busybox
+    spec:
+      containers:
+      - name: busybox-0
+        image: busybox:1.28
+        command: ['sleep', '600']
+      nodeSelector: 
+        web: learn
+  

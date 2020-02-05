@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod-0
+  labels:
+    app: busybox
+spec:
+  containers:
+  - name: busybox-0
+    image: busybox:1.28
+    command: ['sleep', '600']
+  nodeSelector:
+    web: learn
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod-1
+  labels:
+    app: busybox
+spec:
+  containers:
+  - name: busybox-1
+    image: busybox:1.28
+    command: ['sleep', '1200']
+  nodeSelector:
+    web: learn
