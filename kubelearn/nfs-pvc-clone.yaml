@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: existing-clone
+spec:
+  storageClassName: cloning
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+    - ReadAndWriteOnce
+  dataSource:
+    kind: persistentVolumeClaim
+    name: pvc-demo

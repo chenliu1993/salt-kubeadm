@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server
+  stragegy: RollingUpdate
+  - rollingUpdate:
+      maxSurge: 1
+      maxUnavilable: 1
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      podAntiAffinity:
+       	requiredDuringSchedulingIgnoreDuringExcution:
+        - labelSelector:
+            matchExpressions:
+              key: app
+              values: web-store
+          topologyKey:
+          weight
+      podAffinity:
+         requiredDuringSchedulingIgnoreDuringExcution:
+         - labelSelector:
+             matchExpressions:
+               key: app
+               values: store

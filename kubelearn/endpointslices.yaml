@@ -1,0 +1,22 @@
+apiVersion: discovery.k8s.io/v1beta1
+kind: EndpointSlice
+metadata:
+  name: endpointslice
+  labels:
+    endpointslice: here
+addressType: IPv4
+ports:
+  - protocol: HTTP
+    port: 80
+    name: endpoint-slice
+endpoints:
+  - addresses:
+    - "10.1.2.3"
+    conditions:
+      ready: true
+    hostname: eps-1
+    topology:
+      kubernetes.io/hostname: eps-1
+      topology.kubernetes.io/zone: us-west2-a
+
+

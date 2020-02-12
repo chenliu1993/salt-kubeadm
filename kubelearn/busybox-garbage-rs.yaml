@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: busybox-garbage
+spec:
+  selector:
+    matchLabels:
+      garbage: busybox
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        garbage: busybox
+    spec:
+      containers:
+      - name: busybox-gb
+        image: busybox:1.31
+        command: ['sleep','600']
+      nodeSelector:
+        web: learn

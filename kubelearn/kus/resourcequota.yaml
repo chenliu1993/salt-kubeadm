@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: List
+metadata:
+  name: list
+items:
+  - apiVersion: v1
+    kind: ResouceQuota
+    metadata:
+      name:
+    spec:
+      hard:
+        cpu: 
+        memory:
+        pods:
+      scopeSelector:
+        matchExpressions:
+        - operator:
+          values:
+          scopeName:
+      
