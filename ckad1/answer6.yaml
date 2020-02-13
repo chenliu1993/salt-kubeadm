@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 
+      maxUnavilable:
+  selector:
+    matchLabels:
+      app: my
+  replicas: 2
+  template:
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+kubectl expose deploy/myapp
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+spec:
+  podSelector:
+    matchLabels:
+      app: todo
+      tier: database
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr:
+    - namespaceSelector:
+    - podSelector:
+        matchLabels:
+          app: todo
+          tier: backend
+    ports:
+    - protocol: TCP
+      port:3306
+      

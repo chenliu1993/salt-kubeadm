@@ -1,0 +1,41 @@
+apiVersion: storage.k8s.io/v1
+kind: PersistentVolume
+metadata:
+spec:
+  capacity:
+    storage: 512M
+  accessModes:
+  - ReadWriteMany
+  storageClassName: shared
+  persistentClassRetainPolicy: Recycle
+  hostPath:
+    path: 
+---
+apiVersion: storage.k8s.io/v1
+kind: PersistentVolumeClaim
+metadata:
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage:
+  storageClassName: shared
+---
+apiVersion: v1
+kind: Pod
+metadata:
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    volumeMounts:
+    - name: 
+      mountPath: /var/path
+  volumes:
+  - name:
+    persistentVolumeClaim:
+      claimName:
+
+  
+  

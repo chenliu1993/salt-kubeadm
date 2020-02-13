@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    commit: 2d3mg3
+    contact: John Doe
+  name: frontend
+  labels:
+    env=prod 
+    team=shiny
+spec:
+  dnsPolicy: ClusterFirst
+  containers
+  - name: 
+--- 
+kubectl get pod l 'pod='
+---
+kubectl label pod/ env-
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:
+spec:
+  stragy: RollingUpdate:
+  rollingUpdate:
+    maxSurge:
+    maxUnavailable:
+  replicas: 3
+       

@@ -1,0 +1,38 @@
+kubectl create namespace ckad-prep
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:2.3.5
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.15.12
+    ports:
+    - containerPort: 80
+---
+kubectl get pods
+---
+kubectl exec nginx -it --namespace= -- /bin/ls
+---
+kubectl describe pod/nginx -o wide
+---
+kubectl run busybox --image=busybox --rm --it --restart=Never -- /bin/ls
+---
+kubectl logs -f pod/nginx
+---kubectl delete pod/nginx

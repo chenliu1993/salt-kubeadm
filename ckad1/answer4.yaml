@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello
+spec:
+  containers:
+  - name: test
+    image: bonomat/nodejs-hello-world
+    ports:
+    - containerPort: 000
+      name: nodejs-port
+    livenessProbe:
+      httpGet:
+        port: nodejs-port 
+        path: /
+      initialDelaySeconds:
+    readinessProbe:
+      httpGet:
+        path:
+        port:
+      initialDelaySeconds:
+   
