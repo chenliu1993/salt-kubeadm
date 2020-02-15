@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns
+  namespace: kube-system
+data:
+  Corefile: /
+    .:53 {
+      errors
+      forward . /etc/resolv.conf/8.8.8.8
+    }
+    abc.com:53 {
+      errors
+      cache 30
+      forward 10.150.0.1
+   }

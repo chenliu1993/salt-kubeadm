@@ -1,0 +1,138 @@
+kubectl run nginx --image=nginx --restart=Never --dry-run --expose --port=80 -o yaml
+apiVersion: v1
+metadata:
+  name: nginx
+kind: Pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+apiVersion: 80
+kind: Service
+metadata:
+  name: nginx
+spec:
+  ports:
+  - protocol:HTTP
+    port: 80
+    targetPort: 80
+---
+kubectl get svc -o wide
+kubectl get ep -o wide
+apiVersion: v1
+kind: Endpoint
+metadata:
+  name: same-with-service
+subsets:
+  addresses:
+  - ip:
+    - 172
+  ports:
+  - port: 80
+---
+kubectl run busybox --image=busybox:1.31 --restart=Never --dry-run -o yaml --it --rm -- wget -LO- CLUSTERip:PORT
+---
+apiVersion: v1
+kind: Servive
+metadata:
+  name: data
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 33333
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app=foo
+  name: foo
+spec:
+  replicas=3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      max...
+  selector:
+    matchLabels:
+      app=foo
+  template:
+    metadata:
+      labels:
+        app=foo
+      name: foo
+    spec:
+      containers:
+      - name: foo
+        image:
+        ports:
+        - containerPort: 3306
+---
+kubectl get pods -o wide
+kubectl run busybox --rm --it --restart=Never -- wget -LO- ip:8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foo
+spec:
+  ports:
+  - port: 6262
+    targetPort: 8080
+kubectl expose deploy foo --port=6262 --target-port=8080
+---
+kubectl run busybox --image=busybox --restart=Never --rm --it -- wget -O- svcIP:6262
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: v1
+spec:
+  replicas: 2
+  selector: 
+    matchLabels:
+      foo=bar
+  template:
+    metadata:
+      labels:
+        foo=bar
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysvc
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+kubectl export deploy nginx --target-port= --port
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: 
+  namespace:
+spec:
+  podSelector:
+    matchLabels:
+      sdas
+  policyTypes:
+    - Ingress
+  ingress
+    - from
+        - podSelectors:
+          matchLabels:
+            access: true
+      ports: 
+      - protocol: TCP
+        port: 80
