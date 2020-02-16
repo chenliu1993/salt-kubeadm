@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name:
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.13.12
+    ports:
+    - containerPort: 80
+  livenessProbe:
+    exec:
+      command:
+      - ls
+    initialDelaySeconds: 5
+    periodSeconds: 10
+kubectl describe pod/nginx | grep -i 'livenessProbe'
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name:
+spec:
+  containers:
+  - name:
+    image:
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 8080
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name:
+  labels:
+spec:
+  containers:
+  - name: busybox 
+    image: busybox
+    command:
+    - /bin/ls
+    - /notexist
+kubectl describe pod/busybox
+kubectl get events | grep -i error
+---
+kubectl delete pod/busybox --force --gracefukl-periods=10
+---
+kubectl top nodes

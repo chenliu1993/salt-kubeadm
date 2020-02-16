@@ -1,0 +1,173 @@
+---
+kubectl run nginx1 --image=nginx:1.13.12 --restart=Never --lables=app=v1
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    app: v1
+spec:
+  containers:
+  - name: nginx1
+    image: nginx:1.13.12
+    ports:
+    - containerPort: 80
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Never
+  dnsPolicy: ClusterFirst
+---
+kubectl get pods --show-labels
+---
+kubectl label pod/nginx2 app=v2 --overwrite
+---
+kubectl get pods --show-labels
+---
+kubectl get pod -l app=nginx2 
+--- 
+kubectl label pod/nginx1 app-
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cuda
+spec:
+  containers:
+  - name: cuda
+    image: cuda
+  nodeSelector:
+    accelerator=nvidia-tesla-p100
+---
+kubectl annotate po nginx1 nginx2 nginx3 description='my description'
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    description: 'my description'
+  name: test
+spec:
+  containers:
+  - name:
+    image: 
+---
+kubectl describe pod/nginx2 | grep -i 'annotations'
+---
+kubectl annotate pod nginx{1,2,3} annotations-
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:
+  labels:
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+  template:
+    metadata:
+    spec:
+      containers:
+      - ports:
+        - containerPort: 80
+---
+kubectl get deploy nginx -o yaml
+---
+kubectl describe deploy/nginx
+kubectl get rs nginx -o yaml
+---
+kubectl get pod/nginx- -o yaml
+---
+kubectl rollout status deploy/nginx
+---
+kubectl set image deploy nginx nginx1=nginx:latest
+---
+kubectl rollout history deploy/nginx
+---
+kubectl rollout undo deploy/nginx
+---
+kubectl set image deploy/nginx nginx1=nginx:1.9.11
+---
+kubectl rollout status deploy/nginx
+---
+kubectl rollout undo deploy/nginx --to-revision=2
+---
+kubectl rollout history deploy/nginx --revision=4
+---
+kubectl scale deploy/nginx --replicas=5
+---
+kubectl autoscale deploy/nginx --min=5 --max=10 --cpu-percent=80
+---
+kubectl rollout pause deploy/nginx
+---
+kubectl set image deploy/nginx nginx1=nginx:1.9.1
+---
+kubectl rollout resume deploy/nginx
+---
+kubectl delete hpa nginx
+---
+kubectl run pi --image=perl --restart=OnFailure -- perl -Mbignum=bpi -wle 'print bpi(2000)'
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: jobs
+spec:
+  template:
+    spec:
+      containers:
+      - name:
+        image:
+        args:
+        - 
+---
+kubectl get jobs -o wide
+---
+kubectl run busybox --image=busybox --restart=OnFailuer -- echo hello;sleep 30;echo world
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:
+spec:
+  template:
+    spec:
+      containers:
+      - name:
+        image:
+        commands: ['echo', 'hello;', 'sleep', '30;', 'echo','world']
+---
+kubectl logs -f pod/
+---
+kubectl describe job/busybox
+---
+activeDeadlineSeconds=30
+apiVersion: batch/v1
+kind: Job
+metadata:
+   name:
+spec:
+  activeDeadlineSeconds: 30
+  completions: 5
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:
+spec:
+  activeDeadlineSeconds:
+  parallelism:5
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: test
+spec:
+  schedule: '*/1 * * * *'
+  template:
+    metadata:
+      name:
+    spec:
+      containers:
+      - name:
+        image:
+        args:
+        - /bin/sh
+        - -c
+        - date; echo Hello from the Kubernetes cluster

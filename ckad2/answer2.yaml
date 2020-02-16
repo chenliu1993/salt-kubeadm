@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  labels:
+    app: busybox
+spec:
+  containers:
+  - name: busybox1
+    image: busybox:1.13
+    commands: ['sleep', '600']
+  - name: busybox2
+    image: busybox:1.31
+    commands: ['sleep', '600']
+  affinity:
+    nodeAffinity:
+      requiredDuringExcutionDuringScheduling:
+       - nodeSelectorTerms:
+          - matchExpressions:
+              key:
+              values:
+               operator:
+      preferredDuting..:
+        - weight:
+          preference:
+            matchExpressions:
+              key:
+              values:
+              operatoe:
+    podAffinity:
+      required:
+        podSelectorTerms:
+         matchLabels:
+      preerred:
+        weight:
+        matchExpressions:
+  
+          
+      
+       
