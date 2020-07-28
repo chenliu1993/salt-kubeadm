@@ -48,10 +48,8 @@ spec:
               key: mysql_database
         volumeMounts:
         - mountPath: "/var/lib/mysql"
-          name: pvc-demo
+          name: wordpressdb
       volumes:
-      - name: pvc-demo
+      - name: wordpressdb
         persistentVolumeClaim:
-          claimName: pvc-demo
-      nodeSelector:
-        datastore: mysql
+          claimName: pvc-wordpressdb

@@ -1,13 +1,17 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: wordpress-ingress
 spec:
+  tls:
+  - hosts:
+    - www.liuchen.work
+    secretName: wordpress-ingress-secret
   rules:
-  - host: wordpress.me
+  - host: www.liuchen.work
     http:
       paths:
       - path: /
         backend:
           serviceName: wordpress-service
-          servicePort: 8080
+          servicePort: 80 

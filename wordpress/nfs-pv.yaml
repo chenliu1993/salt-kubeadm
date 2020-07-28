@@ -4,11 +4,11 @@ metadata:
   name: datastore
 spec:
   capacity:
-    storage: 10Gi
+    storage: 6Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: nfs
   nfs: 
-    path: /data/k8s-nfs/database
-    server: 192.168.56.11
+    path: /root/k8s/pv
+    server: 172.21.16.5

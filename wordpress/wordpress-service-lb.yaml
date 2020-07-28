@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: wordpress-service
+  name: wordpress-service-lb
 spec:
   selector:
     app: wordpress
@@ -9,6 +9,5 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-    nodePort: 30207
-  type: NodePort
+  type: LoadBalancer
   
