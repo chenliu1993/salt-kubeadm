@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql 
+spec:
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD 
+          value: "123456.com"
+        - name: MYSQL_USER
+          value: "wordpress"
+        - name: MYSQL_PASSWORD
+          value: "wordpress"
+        - name: MYSQL_DATABASE
+          value: "database"
+        volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: pvc-demo
+      volumes:
+      - name: pvc-demo
+        persistentVolumeClaim:
+          claimName: pvc-demo
+      nodeSelector:
+        datastore: mysql

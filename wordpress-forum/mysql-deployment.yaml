@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend 
+spec:
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD 
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: mysql_root_password
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: mysql_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: mysql_password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: mysql_database
+        volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: backenddb
+      volumes:
+      - name: backenddb
+        persistentVolumeClaim:
+          claimName: pvc-store
